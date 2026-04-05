@@ -1,0 +1,77 @@
+cabal-version:      3.0
+name:               harfbuzz
+version:            0.1.0.0
+synopsis:           Small vendored HarfBuzz bindings for Haskell
+description:
+  A small Haskell wrapper around a vendored HarfBuzz build.
+  .
+  The package builds HarfBuzz from vendored upstream sources instead of
+  relying on a system HarfBuzz installation.
+category:           Text
+build-type:         Simple
+license:            BSD-3-Clause
+extra-source-files: README.md
+                    LICENSE.harfbuzz
+                    test/fonts/Roboto-Regular.ttf
+                    vendor/harfbuzz/hb-features.h
+
+flag freetype
+  description: Enable hb-ft integration through the freetype2 Haskell package
+  default: True
+  manual: True
+
+common common-settings
+  default-language: Haskell2010
+  ghc-options: -Wall
+  build-depends:
+      base >= 4.18 && < 5
+    , bytestring >= 0.11 && < 0.13
+  build-tool-depends:
+      hsc2hs:hsc2hs
+
+library
+  import: common-settings
+  exposed-modules:
+      HarfBuzz
+    , HarfBuzz.Internal
+  hs-source-dirs: src
+  include-dirs:
+      vendor/harfbuzz
+    , cbits
+  cxx-sources:
+      vendor/harfbuzz/harfbuzz.cc
+    , cbits/hb_wrapper.cpp
+  cxx-options:
+      -std=c++17
+      -DHB_NO_MT
+  if !os(darwin)
+    extra-libraries: stdc++
+  else
+    extra-libraries: c++
+  if flag(freetype)
+    build-depends:
+        freetype2 >= 0.2.1 && < 0.3
+    cpp-options:
+        -DHB_WITH_FREETYPE
+    include-dirs:
+        vendor/freetype/include
+      , vendor/freetype/include/freetype
+      , vendor/freetype/include/freetype/config
+    cxx-options:
+        -DHAVE_FREETYPE
+
+test-suite harfbuzz-test
+  import: common-settings
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  hs-source-dirs: test
+  build-depends:
+      harfbuzz
+  if flag(freetype)
+    build-depends:
+        freetype2 >= 0.2.1 && < 0.3
+    cpp-options:
+        -DHB_WITH_FREETYPE
+    buildable: True
+  else
+    buildable: False
