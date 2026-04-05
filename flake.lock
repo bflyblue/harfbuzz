@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "freetype2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774503689,
+        "narHash": "sha256-KR/EklKbCfocQj7/fkiY80D0wZ2ZrgckmGuZN08qWMI=",
+        "owner": "bflyblue",
+        "repo": "freetype2",
+        "rev": "14cd409a496299c3938994b9bbfc7681c4bc3dd8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bflyblue",
+        "repo": "freetype2",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1775002709,
+        "narHash": "sha256-d3Yx83vSrN+2z/loBh4mJpyRqr9aAJqlke4TkpFmRJA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "bcd464ccd2a1a7cd09aa2f8d4ffba83b761b1d0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "freetype2": "freetype2",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
