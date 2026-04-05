@@ -13,7 +13,11 @@ license:            BSD-3-Clause
 extra-source-files: README.md
                     LICENSE.harfbuzz
                     test/fonts/Roboto-Regular.ttf
-                    vendor/harfbuzz/hb-features.h
+                    cbits/*.cpp
+                    vendor/harfbuzz/**/*.h
+                    vendor/harfbuzz/**/*.hh
+                    vendor/harfbuzz/**/*.cc
+                    vendor/freetype/include/**/*.h
 
 flag freetype
   description: Enable hb-ft integration through the freetype2 Haskell package
